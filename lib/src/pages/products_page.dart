@@ -35,16 +35,19 @@ class _HomePageState extends State<ProductsPage> {
               ),
             ),
           ]),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _titulo(),
-          _subtitulo(),
-          const SizedBox(height: 20.0),
-          getNavbar(),
-          const SizedBox(height: 20.0),
-          _botonesRedondeados()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _titulo(),
+            _subtitulo(),
+            const SizedBox(height: 20.0),
+            getNavbar(context),
+            const SizedBox(height: 20.0),
+            _showCards(),
+            _showCards()
+          ],
+        ),
       ),
     );
   }
@@ -73,61 +76,20 @@ class _HomePageState extends State<ProductsPage> {
     );
   }
 
-  Widget _productCard() {
-    final card = Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          FadeInImage(
-            image: NetworkImage(
-                "https://th.bing.com/th/id/OIP.SUlDdEvf757_fwHbMsgVLAHaEo?pid=ImgDet&rs=1"),
-            // Colocar loading
-            placeholder: AssetImage("assets/jar-loading.gif"),
-            // Para que la imagen aparezca más rápido
-            fadeInDuration: Duration(milliseconds: 200),
-            height: 100.0,
-            // Como la imagen usa el espacio
-            fit: BoxFit.fill,
-          ),
-          Container(
-            padding: EdgeInsets.all(20.0),
-            child: Text("Nombre Comida"),
-          )
-        ],
-      ),
-    );
-
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.0),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black26,
-                blurRadius: 10.0,
-                spreadRadius: 2.0,
-                offset: Offset(2.0, 5.0))
-          ]),
-      // Cortar lo que se encuentra fuera del contenedor
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: card,
-      ),
-    );
-  }
-
-  Widget _botonesRedondeados() {
+  Widget _showCards() {
     return Table(
       children: [
         TableRow(children: [
-          _crearBotonRedondeado('Pedazo de torta', 1000),
-          _crearBotonRedondeado('Bus', 2000),
+          _addCard('Pedazo de torta', 2000,
+              "https://tofuu.getjusto.com/orioneat-prod-resized/pRKafvYDckbMYP3nG-1200-1200.webp"),
+          _addCard('Café de máquina', 1200,
+              "https://saludos.cualtis.com/wp-content/uploads/2022/05/Cafe-en-vaso-de-papel.jpg"),
         ]),
       ],
     );
   }
 
-  Widget _crearBotonRedondeado(String texto, int precio) {
+  Widget _addCard(String text, int price, String image) {
     return Container(
       height: 290.0,
       margin: EdgeInsets.all(15.0),
@@ -158,14 +120,13 @@ class _HomePageState extends State<ProductsPage> {
             ],
           ),
           CircleAvatar(
-            backgroundImage: NetworkImage(
-                "https://tofuu.getjusto.com/orioneat-prod-resized/pRKafvYDckbMYP3nG-1200-1200.webp"),
+            backgroundImage: NetworkImage("$image"),
             radius: 75.0,
             backgroundColor: Color.fromRGBO(224, 224, 224, 1),
           ),
           SizedBox(height: 10.0),
           Text(
-            texto,
+            text,
             style: TextStyle(
                 color: Color.fromRGBO(73, 73, 73, 1),
                 fontSize: 20.0,
@@ -179,7 +140,7 @@ class _HomePageState extends State<ProductsPage> {
                 padding:
                     EdgeInsets.only(left: 20.0), // Margen izquierdo del precio
                 child: Text(
-                  "\$ $precio",
+                  "\$ $price",
                   style: TextStyle(
                       color: const Color.fromARGB(255, 102, 190, 1),
                       fontSize: 25.0,
@@ -187,7 +148,9 @@ class _HomePageState extends State<ProductsPage> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, "/product");
+                },
                 icon: Icon(
                   Icons.add_circle_rounded,
                   color: const Color.fromARGB(255, 102, 190, 1),

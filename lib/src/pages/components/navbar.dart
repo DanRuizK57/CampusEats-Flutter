@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-Widget getNavbar() {
+Widget getNavbar(BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      _navbarElement(Icon(Icons.home)),
-      _navbarElement(Icon(Icons.favorite)),
-      _navbarElement(Icon(Icons.filter_alt)),
-      _navbarElement(Icon(Icons.shopping_cart)),
+      _navbarElement(context, Icon(Icons.home), "/list"),
+      _navbarElement(context, Icon(Icons.favorite), "/favourites"),
+      _navbarElement(context, Icon(Icons.filter_alt), ""),
+      _navbarElement(context, Icon(Icons.shopping_cart), ""),
     ],
   );
 }
 
-Widget _navbarElement(Icon icono) {
+Widget _navbarElement(BuildContext context, Icon icono, String route) {
   return Card(
     // Sombra de los bordes
     elevation: 10.0,
@@ -23,8 +23,10 @@ Widget _navbarElement(Icon icono) {
       children: [
         IconButton(
             icon: icono,
-            color: Color.fromARGB(255, 97, 97, 97),
-            onPressed: () {})
+            color: Color.fromARGB(255, 117, 117, 117),
+            onPressed: () {
+              Navigator.pushNamed(context, route);
+            })
       ],
     ),
   );
