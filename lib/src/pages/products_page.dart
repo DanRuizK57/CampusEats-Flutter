@@ -1,3 +1,4 @@
+import 'package:campus_eats_flutter/src/pages/components/navbar.dart';
 import 'package:flutter/material.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -33,9 +34,12 @@ class _HomePageState extends State<ProductsPage> {
             ),
           ]),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _titulo(),
           _subtitulo(),
+          const SizedBox(height: 20.0),
+          getNavbar(),
         ],
       ),
     );
@@ -56,11 +60,11 @@ class _HomePageState extends State<ProductsPage> {
 
   Widget _subtitulo() {
     return Container(
-      margin: const EdgeInsetsDirectional.only(start: 10.0, top: 10.0),
+      margin: const EdgeInsetsDirectional.only(start: 20.0, top: 10.0),
       child: Text(
         _cafeteriaName,
         style: const TextStyle(
-            fontSize: 15.0, color: Color.fromARGB(255, 97, 97, 97)),
+            fontSize: 16.0, color: Color.fromARGB(255, 97, 97, 97)),
       ),
     );
   }
