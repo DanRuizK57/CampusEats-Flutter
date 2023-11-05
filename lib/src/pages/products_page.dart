@@ -42,7 +42,7 @@ class _HomePageState extends State<ProductsPage> {
             _titulo(),
             _subtitulo(),
             const SizedBox(height: 20.0),
-            getNavbar(context),
+            NavbarComponent(),
             const SizedBox(height: 20.0),
             _showCards(),
             _showCards()
