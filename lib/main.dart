@@ -1,4 +1,5 @@
 import 'package:campus_eats_flutter/src/pages/products_page.dart';
+import 'package:campus_eats_flutter/src/routes/pages.dart';
 import 'package:campus_eats_flutter/src/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Campus Eats App',
       debugShowCheckedModeBanner: false,
-      initialRoute: "/list",
+      initialRoute: Pages.productsList,
       routes: getApplicationRoutes(),
       // Ruta a la que va por defecto
       onGenerateRoute: (settings) {
