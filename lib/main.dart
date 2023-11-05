@@ -1,6 +1,8 @@
-import 'package:campus_eats_flutter/src/pages/products_page.dart';
+import 'package:campus_eats_flutter/src/pages/product_detail_page.dart';
 import 'package:campus_eats_flutter/src/routes/routes.dart';
 import 'package:flutter/material.dart';
+
+
 
 void main() => runApp(const MyApp());
 
@@ -12,12 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Campus Eats App',
       debugShowCheckedModeBanner: false,
-      initialRoute: "/list",
+      initialRoute: "/product",
       routes: getApplicationRoutes(),
       // Ruta a la que va por defecto
       onGenerateRoute: (settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) => const ProductsPage());
+            builder: (BuildContext context) => const ProductDetailPage());
       },
     );
   }
