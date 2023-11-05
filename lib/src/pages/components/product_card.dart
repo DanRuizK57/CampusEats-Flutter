@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget addCard(BuildContext context, String text, int price, String image) {
+Widget addCard(BuildContext context, String text, int price, String image,
+    bool isFavourite) {
   return Container(
     height: 290.0,
     margin: EdgeInsets.all(15.0),
@@ -25,7 +26,7 @@ Widget addCard(BuildContext context, String text, int price, String image) {
               onPressed: () {},
               icon: Icon(
                 Icons.favorite,
-                color: Color.fromRGBO(165, 164, 164, 1),
+                color: getColorFavourite(isFavourite),
               ),
             ),
           ],
@@ -72,4 +73,12 @@ Widget addCard(BuildContext context, String text, int price, String image) {
       ],
     ),
   );
+}
+
+Color getColorFavourite(bool isFavourite) {
+  if (isFavourite) {
+    return Colors.red;
+  } else {
+    return Colors.grey;
+  }
 }

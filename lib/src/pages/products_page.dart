@@ -112,8 +112,8 @@ class _ProductsPageState extends State<ProductsPage> {
     final List<Widget> products = [];
 
     data.forEach((product) {
-      final tempProduct =
-          addCard(context, product["name"], product["price"], product["photo"]);
+      final tempProduct = addCard(context, product["name"], product["price"],
+          product["photo"], product["isFavourite"]);
       products.add(tempProduct);
     });
     return products;
