@@ -1,7 +1,6 @@
 import 'package:campus_eats_flutter/src/utils/color_changing_button.dart';
 import 'package:campus_eats_flutter/src/utils/quantity_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({Key? key}) : super(key: key);
@@ -63,10 +62,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   children: [
                     Text(
                       "Coulis de Frambuesa",
-                      style: GoogleFonts.poppins(
-                        fontSize: 22,
-                        fontWeight: FontWeight.normal,
-                      ),
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.normal),
                     ),
                     SizedBox(width: 10),
                     Container(
@@ -108,7 +105,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 70),
+                SizedBox(height: 40),
                 Text(
                   "Disfruta de un exquisito postre de tarta con una deliciosa combinación de frambuesas y arándanos. Nuestra tarta de frutas frescas es la opción perfecta para satisfacer tu antojo de dulzura con un toque de acidez. ",
                   style: TextStyle(
@@ -120,7 +117,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 85.0),
+            margin: EdgeInsets.only(top: 35.0),
             child: Container(
               width: 360, // Ancho del contenedor
               height: 50, // Altura del contenedor
@@ -147,7 +144,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment
                       .spaceAround, // Espacio uniforme entre los elementos
-                  children: [             
+                  children: [
                     Text(
                       "$selectedQuantity productos", // Muestra la cantidad seleccionada
                       style: TextStyle(
@@ -155,9 +152,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         color: Colors.white,
                         fontWeight: FontWeight.normal,
                       ),
-                    ),                 
+                    ),
                     Text(
-                      "\$${selectedQuantity * 1400}",// Precio total basado en la cantidad seleccionada
+                      "\$${selectedQuantity * 1400}", // Precio total basado en la cantidad seleccionada
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.white,
