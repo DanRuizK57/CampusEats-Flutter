@@ -1,3 +1,4 @@
+import 'package:campus_eats_flutter/src/pages/products_page.dart';
 import 'package:campus_eats_flutter/src/routes/pages.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +67,10 @@ Widget addCard(BuildContext context, String text, int price, String image,
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                addProduct = true;
+                print(addProduct);
+              },
               icon: Icon(
                 Icons.add_circle_rounded,
                 color: Colors.green,

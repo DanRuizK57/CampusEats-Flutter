@@ -1,5 +1,6 @@
 import 'package:campus_eats_flutter/src/pages/components/navbar.dart';
 import 'package:campus_eats_flutter/src/pages/components/product_card.dart';
+import 'package:campus_eats_flutter/src/pages/components/summary_card.dart';
 import 'package:campus_eats_flutter/src/providers/products_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,8 @@ class ProductsPage extends StatefulWidget {
   State<ProductsPage> createState() => _ProductsPageState();
 }
 
+bool addProduct = false;
+
 class _ProductsPageState extends State<ProductsPage> {
   String _cafeteriaName = "Casino Los Notros";
 
@@ -17,36 +20,50 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.list_outlined),
-            onPressed: () => {},
-          ),
-          backgroundColor: Colors.white,
-          iconTheme:
-              const IconThemeData(color: Color.fromARGB(255, 97, 97, 97)),
-          actions: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(right: 8.0),
-              child: IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {
-                  // Acción cuando se presiona el icono derecho
-                },
-              ),
-            ),
-          ]),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _titulo(),
-            _subtitulo(),
-            const SizedBox(height: 20.0),
-            const NavbarComponent(),
-            const SizedBox(height: 20.0),
-            _showCards()
-          ],
+        leading: IconButton(
+          icon: const Icon(Icons.list_outlined),
+          onPressed: () => {},
         ),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Color.fromARGB(255, 97, 97, 97)),
+        actions: <Widget>[
+          Container(
+            margin: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                // Acción cuando se presiona el icono derecho
+              },
+            ),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _titulo(),
+                    _subtitulo(),
+                    const SizedBox(height: 20.0),
+                    const NavbarComponent(),
+                    const SizedBox(height: 20.0),
+                  ],
+                ),
+              ),
+              SliverToBoxAdapter(child: _showCards()),
+            ],
+          ),
+          if (addProduct)
+            Positioned(
+              left: 25.0,
+              bottom: 20.0,
+              child: summaryCard(),
+            ),
+        ],
       ),
     );
   }
