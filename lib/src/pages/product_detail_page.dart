@@ -1,5 +1,5 @@
 import 'package:campus_eats_flutter/src/utils/color_changing_button.dart';
-import 'package:feather_icons/feather_icons.dart';
+import 'package:campus_eats_flutter/src/utils/quantity_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,6 +11,8 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
+  int selectedQuantity = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +34,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop(); // Navegar hacia atrás
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                        ),
                       ),
                       Row(
                         children: [
@@ -63,8 +70,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                     SizedBox(width: 10),
                     Container(
-                      width: 16, // Ajusta el tamaño del icono a tu gusto
-                      height: 16, // Ajusta el tamaño del icono a tu gusto
+                      width: 18, // Ajusta el tamaño del icono a tu gusto
+                      height: 18, // Ajusta el tamaño del icono a tu gusto
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.green,
@@ -91,27 +98,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.remove,
-                          color: Colors.green,
-                        ),
-                        SizedBox(width: 16),
-                        Text(
-                          "5",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: 16),
-                        Icon(
-                          Icons.add,
-                          color: Colors.green,
-                        ),
-                      ],
+                    QuantitySelector(
+                      initialValue: selectedQuantity,
+                      onChanged: (newQuantity) {
+                        setState(() {
+                          selectedQuantity = newQuantity;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -156,9 +149,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       .spaceAround, // Espacio uniforme entre los elementos
                   children: [
                     Text(
-                      "5 productos",
+                      "$selectedQuantity productos", // Muestra la cantidad seleccionada
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         color: Colors.white,
                       ),
                     ),
