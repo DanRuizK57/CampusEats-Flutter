@@ -18,7 +18,7 @@ class _ColorChangingButtonState extends State<ColorChangingButton> {
       },
       child: Icon(
         Icons.favorite,
-        color: _isPressed ? Colors.red : Colors.white , // Color del icono
+        color: _isPressed ? Colors.red : Colors.black , // Color del icono
         size: 24.0, // Tamaño del icono
       ),
     );

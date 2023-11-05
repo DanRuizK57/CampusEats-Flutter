@@ -22,7 +22,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage("assets/imagen/imagen-2.jpg"),
+                image: NetworkImage("https://tofuu.getjusto.com/orioneat-prod-resized/pRKafvYDckbMYP3nG-1200-1200.webp"),
               ),
             ),
             child: Padding(
@@ -39,7 +39,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         },
                         child: Icon(
                           Icons.arrow_back_ios,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                       Row(
@@ -61,7 +61,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 Row(
                   children: [
                     Text(
-                      "Coulis de Frambuesa",
+                      "Pedazo de torta",
                       style: TextStyle(
                           fontSize: 22, fontWeight: FontWeight.normal),
                     ),
@@ -88,7 +88,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "\$1.400",
+                      "\$2.000",
                       style: TextStyle(
                         fontSize: 30,
                         color: Colors.green,
@@ -105,7 +105,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: 70),
                 Text(
                   "Disfruta de un exquisito postre de tarta con una deliciosa combinación de frambuesas y arándanos. Nuestra tarta de frutas frescas es la opción perfecta para satisfacer tu antojo de dulzura con un toque de acidez. ",
                   style: TextStyle(
@@ -117,7 +117,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 35.0),
+            margin: EdgeInsets.only(top: 85.0),
             child: Container(
               width: 360, // Ancho del contenedor
               height: 50, // Altura del contenedor
@@ -154,7 +154,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ),
                     ),
                     Text(
-                      "\$${selectedQuantity * 1400}", // Precio total basado en la cantidad seleccionada
+                      "\$${selectedQuantity * 2000}", // Precio total basado en la cantidad seleccionada
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.white,
