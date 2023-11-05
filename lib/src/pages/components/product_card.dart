@@ -1,3 +1,4 @@
+import 'package:campus_eats_flutter/src/routes/pages.dart';
 import 'package:flutter/material.dart';
 
 Widget addCard(BuildContext context, String text, int price, String image,
@@ -31,10 +32,15 @@ Widget addCard(BuildContext context, String text, int price, String image,
             ),
           ],
         ),
-        CircleAvatar(
-          backgroundImage: NetworkImage("$image"),
-          radius: 75.0,
-          backgroundColor: Color.fromRGBO(224, 224, 224, 1),
+        GestureDetector(
+          child: CircleAvatar(
+            backgroundImage: NetworkImage("$image"),
+            radius: 75.0,
+            backgroundColor: Color.fromRGBO(224, 224, 224, 1),
+          ),
+          onTap: () {
+            Navigator.pushNamed(context, Pages.productDetail);
+          },
         ),
         SizedBox(height: 10.0),
         Text(
@@ -60,9 +66,7 @@ Widget addCard(BuildContext context, String text, int price, String image,
               ),
             ),
             IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/product");
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.add_circle_rounded,
                 color: Colors.green,
