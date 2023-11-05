@@ -1,16 +1,16 @@
-import 'dart:ui';
-
 import 'package:campus_eats_flutter/src/pages/components/navbar.dart';
+import 'package:campus_eats_flutter/src/pages/components/product_card.dart';
+import 'package:campus_eats_flutter/src/providers/products_provider.dart';
 import 'package:flutter/material.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
 
   @override
-  State<ProductsPage> createState() => _HomePageState();
+  State<ProductsPage> createState() => _ProductsPageState();
 }
 
-class _HomePageState extends State<ProductsPage> {
+class _ProductsPageState extends State<ProductsPage> {
   String _cafeteriaName = "Casino Los Notros";
 
   @override
@@ -42,9 +42,8 @@ class _HomePageState extends State<ProductsPage> {
             _titulo(),
             _subtitulo(),
             const SizedBox(height: 20.0),
-            NavbarComponent(),
+            const NavbarComponent(),
             const SizedBox(height: 20.0),
-            _showCards(),
             _showCards()
           ],
         ),
@@ -77,89 +76,46 @@ class _HomePageState extends State<ProductsPage> {
   }
 
   Widget _showCards() {
-    return Table(
-      children: [
-        TableRow(children: [
-          _addCard('Pedazo de torta', 2000,
-              "https://tofuu.getjusto.com/orioneat-prod-resized/pRKafvYDckbMYP3nG-1200-1200.webp"),
-          _addCard('Café de máquina', 1200,
-              "https://saludos.cualtis.com/wp-content/uploads/2022/05/Cafe-en-vaso-de-papel.jpg"),
-        ]),
-      ],
+    return FutureBuilder(
+      future: productsProvider.loadData(),
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+        if (snapshot.hasData) {
+          List<Widget> products = _productList(snapshot.data!, context);
+
+          List<TableRow> rows = [];
+
+          for (int i = 0; i < products.length; i += 2) {
+            List<Widget> rowProducts = [];
+
+            rowProducts.add(products[i]);
+
+            if (i + 1 < products.length) {
+              rowProducts.add(products[i + 1]);
+            }
+
+            rows.add(TableRow(children: rowProducts));
+          }
+
+          return Table(
+            children: rows,
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 
-  Widget _addCard(String text, int price, String image) {
-    return Container(
-      height: 290.0,
-      margin: EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(224, 224, 224, 1),
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment
-                .spaceBetween, // Alinea los íconos a la derecha
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 10.0), // Margen izquierdo
-                child: Icon(
-                  Icons.circle_outlined,
-                  color: Color.fromARGB(255, 102, 190, 1),
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.favorite,
-                  color: Color.fromRGBO(165, 164, 164, 1),
-                ),
-              ),
-            ],
-          ),
-          CircleAvatar(
-            backgroundImage: NetworkImage("$image"),
-            radius: 75.0,
-            backgroundColor: Color.fromRGBO(224, 224, 224, 1),
-          ),
-          SizedBox(height: 10.0),
-          Text(
-            text,
-            style: TextStyle(
-                color: Color.fromRGBO(73, 73, 73, 1),
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold),
-          ),
-          Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceBetween, // Alinea el botón a la derecha
-            children: [
-              Padding(
-                padding:
-                    EdgeInsets.only(left: 20.0), // Margen izquierdo del precio
-                child: Text(
-                  "\$ $price",
-                  style: TextStyle(
-                      color: const Color.fromARGB(255, 102, 190, 1),
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/product");
-                },
-                icon: Icon(
-                  Icons.add_circle_rounded,
-                  color: const Color.fromARGB(255, 102, 190, 1),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+  List<Widget> _productList(List<dynamic> data, BuildContext context) {
+    final List<Widget> products = [];
+
+    data.forEach((product) {
+      final tempProduct =
+          addCard(context, product["name"], product["price"], product["photo"]);
+      products.add(tempProduct);
+    });
+    return products;
   }
 }

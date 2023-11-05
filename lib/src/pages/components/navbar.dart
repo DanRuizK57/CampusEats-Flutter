@@ -42,7 +42,7 @@ class _NavbarComponentState extends State<NavbarComponent> {
     final currentRoute = ModalRoute.of(context)?.settings.name;
     return currentRoute == route
         ? Colors.green
-        : Color.fromARGB(255, 117, 117, 117);
+        : const Color.fromARGB(255, 117, 117, 117);
   }
 
   Widget _navbarElement(Icon icono, String route) {
@@ -54,7 +54,7 @@ class _NavbarComponentState extends State<NavbarComponent> {
           color: _getIconColor(context, route),
         ),
       ),
-      margin: EdgeInsets.only(right: 30.0),
+      margin: const EdgeInsets.only(right: 30.0),
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, route);
