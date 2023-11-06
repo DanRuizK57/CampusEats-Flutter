@@ -1,4 +1,3 @@
-import 'package:campus_eats_flutter/src/pages/products_page.dart';
 import 'package:campus_eats_flutter/src/routes/pages.dart';
 import 'package:flutter/material.dart';
 
@@ -26,10 +25,10 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 290.0,
-      margin: EdgeInsets.all(15.0),
+      height: 310.0,
+      margin: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(224, 224, 224, 1),
+        color: const Color.fromRGBO(224, 224, 224, 1),
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Column(
@@ -38,8 +37,8 @@ class _ProductCardState extends State<ProductCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                margin: EdgeInsets.only(left: 10.0),
-                child: Icon(
+                margin: const EdgeInsets.only(left: 10.0),
+                child: const Icon(
                   Icons.circle_outlined,
                   color: Colors.green,
                 ),
@@ -57,29 +56,31 @@ class _ProductCardState extends State<ProductCard> {
             child: CircleAvatar(
               backgroundImage: NetworkImage(widget.image),
               radius: 75.0,
-              backgroundColor: Color.fromRGBO(224, 224, 224, 1),
+              backgroundColor: const Color.fromRGBO(224, 224, 224, 1),
             ),
             onTap: () {
               Navigator.pushNamed(context, Pages.productDetail);
             },
           ),
-          SizedBox(height: 10.0),
-          Text(
-            widget.text,
-            style: TextStyle(
-              color: Color.fromRGBO(73, 73, 73, 1),
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          const SizedBox(height: 10.0),
+          Text(widget.text,
+              style: const TextStyle(
+                color: Color.fromRGBO(73, 73, 73, 1),
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis),
+          const SizedBox(height: 5.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 20.0),
+                padding: const EdgeInsets.only(left: 20.0),
                 child: Text(
                   "\$ ${widget.price}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.green,
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
@@ -92,7 +93,7 @@ class _ProductCardState extends State<ProductCard> {
                     widget.showCard(true);
                   });
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.add_circle_rounded,
                   color: Colors.green,
                 ),

@@ -1,3 +1,4 @@
+import 'package:campus_eats_flutter/src/pages/components/summary_card.dart';
 import 'package:campus_eats_flutter/src/utils/color_changing_button.dart';
 import 'package:campus_eats_flutter/src/utils/quantity_selector.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage("https://tofuu.getjusto.com/orioneat-prod-resized/pRKafvYDckbMYP3nG-1200-1200.webp"),
+                image: NetworkImage(
+                    "https://tofuu.getjusto.com/orioneat-prod-resized/pRKafvYDckbMYP3nG-1200-1200.webp"),
               ),
             ),
             child: Padding(
@@ -116,56 +118,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 85.0),
-            child: Container(
-              width: 360, // Ancho del contenedor
-              height: 50, // Altura del contenedor
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(
-                      6.0), // Redondear esquina superior izquierda
-                  topRight: Radius.circular(
-                      6.0), // Redondear esquina superior derecha
-                  bottomLeft: Radius.circular(
-                      43.0), // Redondear esquina inferior izquierda
-                  bottomRight: Radius.circular(
-                      43.0), // Redondear esquina inferior derecha
-                ),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0),
-                  bottomLeft: Radius.circular(30.0),
-                  bottomRight: Radius.circular(30.0),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment
-                      .spaceAround, // Espacio uniforme entre los elementos
-                  children: [
-                    Text(
-                      "$selectedQuantity productos", // Muestra la cantidad seleccionada
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                    Text(
-                      "\$${selectedQuantity * 2000}", // Precio total basado en la cantidad seleccionada
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          summaryCard(selectedQuantity, 2000)
         ],
       ),
     );

@@ -12,7 +12,7 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  String _cafeteriaName = "Casino Los Notros";
+  String _cafeteriaName = 'Casino "Los Notros"';
   bool showCard = false;
   int selectedQuantity = 0;
 
