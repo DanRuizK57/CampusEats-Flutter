@@ -25,12 +25,13 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 310.0,
+      height: 311.0,
       margin: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
-        color: const Color.fromRGBO(224, 224, 224, 1),
-        borderRadius: BorderRadius.circular(20.0),
-      ),
+          color: Color.fromARGB(0, 255, 255, 255),
+          borderRadius: BorderRadius.circular(20.0),
+          border:
+              Border.all(color: Color.fromRGBO(224, 224, 224, 1), width: 2.0)),
       child: Column(
         children: <Widget>[
           Row(
