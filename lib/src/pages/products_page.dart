@@ -14,10 +14,12 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPageState extends State<ProductsPage> {
   String _cafeteriaName = "Casino Los Notros";
   bool showCard = false;
+  int selectedQuantity = 0;
 
   void updateShowCard(bool value) {
     setState(() {
       showCard = value;
+      selectedQuantity++;
     });
   }
 
@@ -66,7 +68,8 @@ class _ProductsPageState extends State<ProductsPage> {
             Positioned(
               left: 25.0,
               bottom: 20.0,
-              child: summaryCard(),
+              // TODO: Ajustar el precio cuando esté la API
+              child: summaryCard(selectedQuantity, 2000),
             ),
         ],
       ),

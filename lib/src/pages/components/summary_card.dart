@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-Widget summaryCard() {
+Widget summaryCard(int selectedQuantity, int productPrice) {
+  int finalPrice = productPrice * selectedQuantity;
+
   return Container(
     margin: EdgeInsets.only(top: 85.0),
     child: Container(
@@ -29,7 +31,7 @@ Widget summaryCard() {
               .spaceAround, // Espacio uniforme entre los elementos
           children: [
             Text(
-              "1 productos", // Muestra la cantidad seleccionada
+              "$selectedQuantity productos", // Muestra la cantidad seleccionada
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
@@ -37,7 +39,7 @@ Widget summaryCard() {
               ),
             ),
             Text(
-              "\$1400", // Precio total basado en la cantidad seleccionada
+              "\$$finalPrice", // Precio total basado en la cantidad seleccionada
               style: TextStyle(
                 fontSize: 22,
                 color: Colors.white,
