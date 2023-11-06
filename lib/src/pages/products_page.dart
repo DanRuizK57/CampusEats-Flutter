@@ -11,10 +11,17 @@ class ProductsPage extends StatefulWidget {
   State<ProductsPage> createState() => _ProductsPageState();
 }
 
-bool addProduct = false;
-
 class _ProductsPageState extends State<ProductsPage> {
-  String _cafeteriaName = "Casino Los Notros";
+  String _cafeteriaName = 'Casino "Los Notros"';
+  bool showCard = false;
+  int selectedQuantity = 0;
+
+  void updateShowCard(bool value) {
+    setState(() {
+      showCard = value;
+      selectedQuantity++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +64,12 @@ class _ProductsPageState extends State<ProductsPage> {
               SliverToBoxAdapter(child: _showCards()),
             ],
           ),
-          if (addProduct)
+          if (showCard)
             Positioned(
               left: 25.0,
               bottom: 20.0,
-              child: summaryCard(),
+              // TODO: Ajustar el precio cuando esté la API
+              child: summaryCard(selectedQuantity, 2000),
             ),
         ],
       ),
@@ -129,8 +137,13 @@ class _ProductsPageState extends State<ProductsPage> {
     final List<Widget> products = [];
 
     data.forEach((product) {
-      final tempProduct = addCard(context, product["name"], product["price"],
-          product["photo"], product["isFavourite"]);
+      final tempProduct = ProductCard(
+        text: product["name"],
+        price: product["price"],
+        image: product["photo"],
+        isFavourite: product["isFavourite"],
+        showCard: updateShowCard,
+      );
       products.add(tempProduct);
     });
     return products;
