@@ -103,7 +103,6 @@ class _ProductsPageState extends State<ProductsPage> {
 
   Widget _showCards() {
     final productsProvider = new ProductsProvider();
-    productsProvider.getProducts();
     return FutureBuilder(
       future: productsProvider.getProducts(),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {

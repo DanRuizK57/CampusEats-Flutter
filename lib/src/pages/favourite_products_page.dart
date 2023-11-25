@@ -105,7 +105,7 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
     final productsProvider = new ProductsProvider();
     productsProvider.getProducts();
     return FutureBuilder(
-      future: productsProviderJson.loadData(),
+      future: productsProvider.getFavourites(),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           List<Widget> products = _productList(snapshot.data!, context);
@@ -141,13 +141,13 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
 
     data.forEach((product) {
       final tempProduct = ProductCard(
-        text: product["name"],
-        price: product["price"],
-        image: product["photo"],
-        isFavourite: product["isFavourite"],
+        text: product.name,
+        price: product.price,
+        image: product.photo,
+        isFavourite: product.isFavourite,
         showCard: updateShowCard,
       );
-      if (product["isFavourite"] == true) products.add(tempProduct);
+      products.add(tempProduct);
     });
     return products;
   }
