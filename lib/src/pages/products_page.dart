@@ -2,6 +2,7 @@ import 'package:campus_eats_flutter/src/pages/components/navbar.dart';
 import 'package:campus_eats_flutter/src/pages/components/product_card.dart';
 import 'package:campus_eats_flutter/src/pages/components/summary_card.dart';
 import 'package:campus_eats_flutter/src/providers/products_provider.dart';
+import 'package:campus_eats_flutter/src/providers/products_provider_JSON.dart';
 import 'package:flutter/material.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -101,8 +102,10 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   Widget _showCards() {
+    final productsProvider = new ProductsProvider();
+    productsProvider.getProducts();
     return FutureBuilder(
-      future: productsProvider.loadData(),
+      future: productsProviderJson.loadData(),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           List<Widget> products = _productList(snapshot.data!, context);
