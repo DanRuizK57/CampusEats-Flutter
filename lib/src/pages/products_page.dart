@@ -105,10 +105,11 @@ class _ProductsPageState extends State<ProductsPage> {
     final productsProvider = new ProductsProvider();
     productsProvider.getProducts();
     return FutureBuilder(
-      future: productsProviderJson.loadData(),
+      future: productsProvider.getProducts(),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           List<Widget> products = _productList(snapshot.data!, context);
+          print(products);
 
           List<TableRow> rows = [];
 
@@ -116,6 +117,7 @@ class _ProductsPageState extends State<ProductsPage> {
             List<Widget> rowProducts = [];
 
             rowProducts.add(products[i]);
+            print(products[i]);
 
             if (i + 1 < products.length) {
               rowProducts.add(products[i + 1]);
@@ -141,10 +143,10 @@ class _ProductsPageState extends State<ProductsPage> {
 
     data.forEach((product) {
       final tempProduct = ProductCard(
-        text: product["name"],
-        price: product["price"],
-        image: product["photo"],
-        isFavourite: product["isFavourite"],
+        text: product.name,
+        price: product.price,
+        image: product.photo,
+        isFavourite: product.isFavourite,
         showCard: updateShowCard,
       );
       products.add(tempProduct);
