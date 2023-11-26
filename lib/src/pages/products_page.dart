@@ -2,7 +2,6 @@ import 'package:campus_eats_flutter/src/pages/components/navbar.dart';
 import 'package:campus_eats_flutter/src/pages/components/product_card.dart';
 import 'package:campus_eats_flutter/src/pages/components/summary_card.dart';
 import 'package:campus_eats_flutter/src/providers/products_provider.dart';
-import 'package:campus_eats_flutter/src/providers/products_provider_JSON.dart';
 import 'package:flutter/material.dart';
 
 class ProductsPage extends StatefulWidget {

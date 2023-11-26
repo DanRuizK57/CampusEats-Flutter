@@ -55,7 +55,8 @@ class _ProductCardState extends State<ProductCard> {
           ),
           GestureDetector(
             child: CircleAvatar(
-              backgroundImage: NetworkImage(widget.image),
+              backgroundImage: NetworkImage(
+                  "http://192.168.56.1:3000/product/photo/${widget.image}"),
               radius: 75.0,
               backgroundColor: const Color.fromRGBO(224, 224, 224, 1),
             ),
