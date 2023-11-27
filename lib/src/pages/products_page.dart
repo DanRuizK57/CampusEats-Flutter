@@ -109,7 +109,6 @@ class _ProductsPageState extends State<ProductsPage> {
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           List<Widget> products = _productList(snapshot.data!, context);
-          print(products);
 
           List<TableRow> rows = [];
 
@@ -117,10 +116,12 @@ class _ProductsPageState extends State<ProductsPage> {
             List<Widget> rowProducts = [];
 
             rowProducts.add(products[i]);
-            print(products[i]);
 
             if (i + 1 < products.length) {
               rowProducts.add(products[i + 1]);
+            } else {
+              // Agregar un elemento vacío si la fila es irregular
+              rowProducts.add(Container());
             }
 
             rows.add(TableRow(children: rowProducts));

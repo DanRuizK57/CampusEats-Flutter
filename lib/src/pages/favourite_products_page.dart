@@ -70,8 +70,6 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
           if (showCard)
             Positioned(
               left: 25.0,
-              bottom: 20.0,
-              // TODO: Ajustar el precio cuando esté la API
               child: summaryCard(selectedQuantity, selectedPrice),
             ),
         ],
@@ -121,6 +119,9 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
 
             if (i + 1 < products.length) {
               rowProducts.add(products[i + 1]);
+            } else {
+              // Agregar un elemento vacío si la fila es irregular
+              rowProducts.add(Container());
             }
 
             rows.add(TableRow(children: rowProducts));
