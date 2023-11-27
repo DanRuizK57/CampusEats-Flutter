@@ -7,7 +7,7 @@ class ProductCard extends StatefulWidget {
   final String image;
   final bool isFavourite;
 
-  final Function(bool) showCard;
+  void Function(bool, int) showCard;
 
   ProductCard({
     required this.text,
@@ -92,7 +92,7 @@ class _ProductCardState extends State<ProductCard> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    widget.showCard(true);
+                    widget.showCard(true, widget.price);
                   });
                 },
                 icon: const Icon(
