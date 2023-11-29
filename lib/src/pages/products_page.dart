@@ -144,6 +144,7 @@ class _ProductsPageState extends State<ProductsPage> {
 
     data.forEach((product) {
       final tempProduct = ProductCard(
+        id: product.id,
         text: product.name,
         price: product.price,
         image: product.photo,

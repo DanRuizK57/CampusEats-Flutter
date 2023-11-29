@@ -24,4 +24,10 @@ class ProductsProvider {
 
     return products.items;
   }
+
+  void setFavourite(String productId) async {
+    final url =
+        Uri.http('192.168.56.1:3000', '/product/set-favourite/$productId');
+    final response = await http.post(url);
+  }
 }
