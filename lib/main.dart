@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       // Ruta a la que va por defecto
       onGenerateRoute: (settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) => const ProductsPage());
+            builder: (BuildContext context) => ProductsPage());
       },
     );
   }

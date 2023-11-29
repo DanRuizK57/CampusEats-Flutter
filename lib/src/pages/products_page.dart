@@ -1,11 +1,12 @@
 import 'package:campus_eats_flutter/src/pages/components/navbar.dart';
 import 'package:campus_eats_flutter/src/pages/components/product_card.dart';
 import 'package:campus_eats_flutter/src/pages/components/summary_card.dart';
+import 'package:campus_eats_flutter/src/pages/product_detail_page.dart';
 import 'package:campus_eats_flutter/src/providers/products_provider.dart';
 import 'package:flutter/material.dart';
-
 class ProductsPage extends StatefulWidget {
-  const ProductsPage({super.key});
+
+  //const ProductsPage({super.key});
 
   @override
   State<ProductsPage> createState() => _ProductsPageState();
@@ -70,7 +71,6 @@ class _ProductsPageState extends State<ProductsPage> {
             Positioned(
               left: 25.0,
               bottom: 20.0,
-              // TODO: Ajustar el precio cuando esté la API
               child: summaryCard(selectedQuantity, selectedPrice),
             ),
         ],
@@ -120,7 +120,6 @@ class _ProductsPageState extends State<ProductsPage> {
             if (i + 1 < products.length) {
               rowProducts.add(products[i + 1]);
             } else {
-              // Agregar un elemento vacío si la fila es irregular
               rowProducts.add(Container());
             }
 
@@ -150,6 +149,16 @@ class _ProductsPageState extends State<ProductsPage> {
         isFavourite: product.isFavourite,
         showCard: (bool value, int price) =>
             updateShowCard(true, product.price),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailPage(
+                productDetail: product.toProductDetail(),
+              ),
+            ),
+          );
+        },
       );
       products.add(tempProduct);
     });

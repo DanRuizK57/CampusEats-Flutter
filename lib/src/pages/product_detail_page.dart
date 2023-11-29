@@ -2,9 +2,13 @@ import 'package:campus_eats_flutter/src/pages/components/summary_card.dart';
 import 'package:campus_eats_flutter/src/utils/color_changing_button.dart';
 import 'package:campus_eats_flutter/src/utils/quantity_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:campus_eats_flutter/src/models/product_detail.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  const ProductDetailPage({Key? key}) : super(key: key);
+  final ProductDetail productDetail;
+
+  ProductDetailPage({Key? key, required this.productDetail})
+      : super(key: key);
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -13,18 +17,27 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int selectedQuantity = 0;
 
+  void updateShowCard(bool value, int price) {
+    setState(() {
+      selectedQuantity++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: PageStorage(
+      child: Column(
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.45,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                    "https://tofuu.getjusto.com/orioneat-prod-resized/pRKafvYDckbMYP3nG-1200-1200.webp"),
+                  widget.productDetail
+                      .photo!, 
+                ),
               ),
             ),
             child: Padding(
@@ -46,7 +59,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ),
                       Row(
                         children: [
-                          ColorChangingButton(), // Agrega el botón personalizado
+                           //ColorChangingButton(),
                         ],
                       ),
                     ],
@@ -63,14 +76,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 Row(
                   children: [
                     Text(
-                      "Pedazo de torta",
+                      widget.productDetail.name!,
                       style: TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.normal),
+                        fontSize: 22,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
                     SizedBox(width: 10),
                     Container(
-                      width: 18, // Ajusta el tamaño del icono a tu gusto
-                      height: 18, // Ajusta el tamaño del icono a tu gusto
+                      width: 18,
+                      height: 18,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.green,
@@ -79,7 +94,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Icon(
                           Icons.circle,
                           color: Colors.white,
-                          size: 9, // Ajusta el tamaño del icono
+                          size: 9,
                         ),
                       ),
                     ),
@@ -90,7 +105,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "\$2.000",
+                      "\$${widget.productDetail.price}",
                       style: TextStyle(
                         fontSize: 30,
                         color: Colors.green,
@@ -109,7 +124,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
                 SizedBox(height: 70),
                 Text(
-                  "Disfruta de un exquisito postre de tarta con una deliciosa combinación de frambuesas y arándanos. Nuestra tarta de frutas frescas es la opción perfecta para satisfacer tu antojo de dulzura con un toque de acidez. ",
+                  widget.productDetail.description!,
                   style: TextStyle(
                     fontSize: 16,
                   ),
@@ -118,9 +133,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ],
             ),
           ),
-          summaryCard(selectedQuantity, 2000)
+          summaryCard(selectedQuantity, widget.productDetail.price!)
         ],
       ),
+      bucket: PageStorageBucket(),
+      ), 
     );
   }
 }

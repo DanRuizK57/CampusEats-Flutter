@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class ProductsProvider {
   Future<List<Product>> getProducts() async {
-    final url = Uri.http('192.168.56.1:3000', '/product/list');
+    final url = Uri.http('172.40.196.77:3000', '/product/list');
     final response = await http.get(url);
     final decodedData = json.decode(response.body);
 
@@ -16,7 +16,7 @@ class ProductsProvider {
   }
 
   Future<List<Product>> getFavourites() async {
-    final url = Uri.http('192.168.56.1:3000', '/product/favourites');
+    final url = Uri.http('172.40.196.77:3000', '/product/favourites');
     final response = await http.get(url);
     final decodedData = json.decode(response.body);
 

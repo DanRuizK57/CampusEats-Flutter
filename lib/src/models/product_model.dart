@@ -1,3 +1,5 @@
+import 'product_detail.dart';
+
 class Products {
   List<Product> items = [];
 
@@ -44,4 +46,16 @@ class Product {
     price = json['price'];
     photo = json['photo'];
   }
+
+  ProductDetail toProductDetail() {
+    return ProductDetail(
+      id: id,
+      name: name,
+      description: description,
+      quantity: quantity,
+      price: price,
+      photo: photo,
+    );
+  }
+
 }

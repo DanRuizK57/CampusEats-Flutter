@@ -8,6 +8,7 @@ class ProductCard extends StatefulWidget {
   final bool isFavourite;
 
   void Function(bool, int) showCard;
+  void Function() onTap;
 
   ProductCard({
     required this.text,
@@ -15,6 +16,7 @@ class ProductCard extends StatefulWidget {
     required this.image,
     required this.isFavourite,
     required this.showCard,
+    required this.onTap,
   });
 
   @override
@@ -56,12 +58,12 @@ class _ProductCardState extends State<ProductCard> {
           GestureDetector(
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                  "http://192.168.56.1:3000/product/photo/${widget.image}"),
+                  "http://172.40.196.77:3000/product/photo/${widget.image}"),
               radius: 75.0,
               backgroundColor: const Color.fromRGBO(224, 224, 224, 1),
             ),
             onTap: () {
-              Navigator.pushNamed(context, Pages.productDetail);
+               widget.onTap();
             },
           ),
           const SizedBox(height: 10.0),

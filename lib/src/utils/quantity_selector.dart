@@ -11,12 +11,13 @@ class QuantitySelector extends StatefulWidget {
 }
 
 class _QuantitySelectorState extends State<QuantitySelector> {
-  int _quantity = 0;
+  late int _quantity;
 
   @override
   void initState() {
     super.initState();
-    _quantity = widget.initialValue;
+    int maxFinite = 100;
+    _quantity = widget.initialValue.clamp(0, maxFinite);
   }
 
   void _decrement() {
