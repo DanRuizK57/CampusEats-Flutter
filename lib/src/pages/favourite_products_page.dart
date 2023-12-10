@@ -2,6 +2,7 @@ import 'package:campus_eats_flutter/src/pages/components/navbar.dart';
 import 'package:campus_eats_flutter/src/pages/components/product_card.dart';
 import 'package:campus_eats_flutter/src/pages/components/summary_card.dart';
 import 'package:campus_eats_flutter/src/providers/products_provider.dart';
+import 'package:campus_eats_flutter/src/providers/products_provider_JSON.dart';
 import 'package:flutter/material.dart';
 
 class FavouriteProductsPage extends StatefulWidget {
@@ -15,10 +16,12 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
   String _cafeteriaName = 'Casino "Los Notros"';
   bool showCard = false;
   int selectedQuantity = 0;
+  int selectedPrice = 0;
 
-  void updateShowCard(bool value) {
+  void updateShowCard(bool value, int price) {
     setState(() {
       showCard = value;
+      selectedPrice = price;
       selectedQuantity++;
     });
   }
@@ -67,9 +70,7 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
           if (showCard)
             Positioned(
               left: 25.0,
-              bottom: 20.0,
-              // TODO: Ajustar el precio cuando esté la API
-              child: summaryCard(selectedQuantity, 2000),
+              child: summaryCard(selectedQuantity, selectedPrice),
             ),
         ],
       ),
@@ -101,8 +102,10 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
   }
 
   Widget _showCards() {
+    final productsProvider = new ProductsProvider();
+    productsProvider.getProducts();
     return FutureBuilder(
-      future: productsProvider.loadData(),
+      future: productsProvider.getFavourites(),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           List<Widget> products = _productList(snapshot.data!, context);
@@ -116,6 +119,9 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
 
             if (i + 1 < products.length) {
               rowProducts.add(products[i + 1]);
+            } else {
+              // Agregar un elemento vacío si la fila es irregular
+              rowProducts.add(Container());
             }
 
             rows.add(TableRow(children: rowProducts));
@@ -138,13 +144,16 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
 
     data.forEach((product) {
       final tempProduct = ProductCard(
-        text: product["name"],
-        price: product["price"],
-        image: product["photo"],
-        isFavourite: product["isFavourite"],
-        showCard: updateShowCard,
+        id: product.id,
+        text: product.name,
+        price: product.price,
+        image: product.photo,
+        isFavourite: product.isFavourite,
+        showCard: (bool value, int price) =>
+            updateShowCard(true, product.price),
+             onTap: () {  },
       );
-      if (product["isFavourite"] == true) products.add(tempProduct);
+      products.add(tempProduct);
     });
     return products;
   }

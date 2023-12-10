@@ -1,20 +1,25 @@
+import 'package:campus_eats_flutter/src/providers/products_provider.dart';
 import 'package:campus_eats_flutter/src/routes/pages.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatefulWidget {
+  final String id;
   final String text;
   final int price;
   final String image;
   final bool isFavourite;
 
-  final Function(bool) showCard;
+  void Function(bool, int) showCard;
+  void Function() onTap;
 
   ProductCard({
+    required this.id,
     required this.text,
     required this.price,
     required this.image,
     required this.isFavourite,
     required this.showCard,
+    required this.onTap,
   });
 
   @override
@@ -22,10 +27,20 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+  final productsProvider = new ProductsProvider();
+  bool isFavourite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavourite = widget.isFavourite;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final productsProvider = new ProductsProvider();
     return Container(
-      height: 311.0,
+      height: 320.0,
       margin: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
           color: Color.fromARGB(0, 255, 255, 255),
@@ -45,22 +60,28 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
                 icon: Icon(
                   Icons.favorite,
-                  color: getColorFavourite(widget.isFavourite),
+                  color: isFavourite ? Colors.red : Colors.grey,
                 ),
+                onPressed: () {
+                  setState(() {
+                    isFavourite = !isFavourite;
+                    productsProvider.setFavourite(widget.id);
+                  });
+                },
               ),
             ],
           ),
           GestureDetector(
             child: CircleAvatar(
-              backgroundImage: NetworkImage(widget.image),
+              backgroundImage:
+                  NetworkImage(productsProvider.getPhotoUrl(widget.image)),
               radius: 75.0,
               backgroundColor: const Color.fromRGBO(224, 224, 224, 1),
             ),
             onTap: () {
-              Navigator.pushNamed(context, Pages.productDetail);
+              widget.onTap();
             },
           ),
           const SizedBox(height: 10.0),
@@ -91,7 +112,7 @@ class _ProductCardState extends State<ProductCard> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    widget.showCard(true);
+                    widget.showCard(true, widget.price);
                   });
                 },
                 icon: const Icon(
@@ -104,13 +125,5 @@ class _ProductCardState extends State<ProductCard> {
         ],
       ),
     );
-  }
-
-  Color getColorFavourite(bool isFavourite) {
-    if (isFavourite) {
-      return Colors.red;
-    } else {
-      return Colors.grey;
-    }
   }
 }

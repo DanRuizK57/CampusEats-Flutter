@@ -1,28 +1,39 @@
-// Manejo del archivo JSON
-
-// Se usa show para sólo cargar 1 elemento y no todo el paquete completo
 import 'dart:convert';
 
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:campus_eats_flutter/src/models/product_model.dart';
 
-class _ProductsProvider {
-  List<dynamic> products = [];
+import 'package:http/http.dart' as http;
 
-  _ProductsProvider() {
-    loadData();
+class ProductsProvider {
+  final String ip = "192.168.1.13";
+
+  Future<List<Product>> getProducts() async {
+    final url = Uri.http('$ip:3000', '/product/list');
+    final response = await http.get(url);
+    final decodedData = json.decode(response.body);
+
+    final products = new Products.fromJsonList(decodedData["products"]);
+
+    return products.items;
   }
 
-  // Cargar datos del json
-  Future<List<dynamic>> loadData() async {
-    final resp = await rootBundle.loadString('data/products.json');
-    /* Se obtiene un string de data, con lo cual se necesita transformar a Map
-      para poder obtener los datos */
-    Map dataMap = jsonDecode(resp);
-    products = dataMap["products"];
+  Future<List<Product>> getFavourites() async {
+    final url = Uri.http('$ip:3000', '/product/favourites');
+    final response = await http.get(url);
+    final decodedData = json.decode(response.body);
 
-    return products;
+    final products = new Products.fromJsonList(decodedData["products"]);
+
+    return products.items;
+  }
+  
+  void setFavourite(String productId) async {
+    final url =
+        Uri.http('$ip:3000', '/product/set-favourite/$productId');
+    final response = await http.post(url);
+  }
+
+  String getPhotoUrl(String photoId) {
+    return "http://$ip:3000/product/photo/$photoId";
   }
 }
-
-// Esta clase sólo devuelve esta instancia
-final productsProvider = _ProductsProvider();
