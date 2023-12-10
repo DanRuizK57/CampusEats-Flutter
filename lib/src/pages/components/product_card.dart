@@ -1,3 +1,4 @@
+import 'package:campus_eats_flutter/src/providers/products_provider.dart';
 import 'package:campus_eats_flutter/src/routes/pages.dart';
 import 'package:flutter/material.dart';
 
@@ -26,8 +27,9 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
+    final productsProvider = new ProductsProvider();
     return Container(
-      height: 311.0,
+      height: 320.0,
       margin: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
           color: Color.fromARGB(0, 255, 255, 255),
@@ -57,13 +59,13 @@ class _ProductCardState extends State<ProductCard> {
           ),
           GestureDetector(
             child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "http://172.40.196.77:3000/product/photo/${widget.image}"),
+              backgroundImage:
+                  NetworkImage(productsProvider.getPhotoUrl(widget.image)),
               radius: 75.0,
               backgroundColor: const Color.fromRGBO(224, 224, 224, 1),
             ),
             onTap: () {
-               widget.onTap();
+              widget.onTap();
             },
           ),
           const SizedBox(height: 10.0),
