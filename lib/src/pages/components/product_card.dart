@@ -3,6 +3,7 @@ import 'package:campus_eats_flutter/src/routes/pages.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatefulWidget {
+  final String id;
   final String text;
   final int price;
   final String image;
@@ -12,6 +13,7 @@ class ProductCard extends StatefulWidget {
   void Function() onTap;
 
   ProductCard({
+    required this.id,
     required this.text,
     required this.price,
     required this.image,
@@ -25,6 +27,15 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+  final productsProvider = new ProductsProvider();
+  bool isFavourite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavourite = widget.isFavourite;
+  }
+
   @override
   Widget build(BuildContext context) {
     final productsProvider = new ProductsProvider();
@@ -49,11 +60,16 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
                 icon: Icon(
                   Icons.favorite,
-                  color: getColorFavourite(widget.isFavourite),
+                  color: isFavourite ? Colors.red : Colors.grey,
                 ),
+                onPressed: () {
+                  setState(() {
+                    isFavourite = !isFavourite;
+                    productsProvider.setFavourite(widget.id);
+                  });
+                },
               ),
             ],
           ),
@@ -109,13 +125,5 @@ class _ProductCardState extends State<ProductCard> {
         ],
       ),
     );
-  }
-
-  Color getColorFavourite(bool isFavourite) {
-    if (isFavourite) {
-      return Colors.red;
-    } else {
-      return Colors.grey;
-    }
   }
 }

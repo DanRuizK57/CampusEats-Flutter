@@ -26,6 +26,12 @@ class ProductsProvider {
 
     return products.items;
   }
+  
+  void setFavourite(String productId) async {
+    final url =
+        Uri.http('$ip:3000', '/product/set-favourite/$productId');
+    final response = await http.post(url);
+  }
 
   String getPhotoUrl(String photoId) {
     return "http://$ip:3000/product/photo/$photoId";

@@ -144,6 +144,7 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
 
     data.forEach((product) {
       final tempProduct = ProductCard(
+        id: product.id,
         text: product.name,
         price: product.price,
         image: product.photo,
