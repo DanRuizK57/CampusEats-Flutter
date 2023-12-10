@@ -132,7 +132,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ],
               ),
             ),
-            summaryCard(selectedQuantity, widget.productDetail.price!)
+            if (selectedQuantity > 0)
+              summaryCard(selectedQuantity, widget.productDetail.price!)
           ],
         ),
         bucket: PageStorageBucket(),
