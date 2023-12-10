@@ -151,6 +151,7 @@ class _FavouriteProductsPageState extends State<FavouriteProductsPage> {
         isFavourite: product.isFavourite,
         showCard: (bool value, int price) =>
             updateShowCard(true, product.price),
+             onTap: () {  },
       );
       products.add(tempProduct);
     });

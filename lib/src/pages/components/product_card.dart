@@ -10,6 +10,7 @@ class ProductCard extends StatefulWidget {
   final bool isFavourite;
 
   void Function(bool, int) showCard;
+  void Function() onTap;
 
   ProductCard({
     required this.id,
@@ -18,6 +19,7 @@ class ProductCard extends StatefulWidget {
     required this.image,
     required this.isFavourite,
     required this.showCard,
+    required this.onTap,
   });
 
   @override
@@ -36,8 +38,9 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
+    final productsProvider = new ProductsProvider();
     return Container(
-      height: 311.0,
+      height: 320.0,
       margin: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
           color: Color.fromARGB(0, 255, 255, 255),
@@ -72,13 +75,13 @@ class _ProductCardState extends State<ProductCard> {
           ),
           GestureDetector(
             child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "http://192.168.56.1:3000/product/photo/${widget.image}"),
+              backgroundImage:
+                  NetworkImage(productsProvider.getPhotoUrl(widget.image)),
               radius: 75.0,
               backgroundColor: const Color.fromRGBO(224, 224, 224, 1),
             ),
             onTap: () {
-              Navigator.pushNamed(context, Pages.productDetail);
+              widget.onTap();
             },
           ),
           const SizedBox(height: 10.0),
