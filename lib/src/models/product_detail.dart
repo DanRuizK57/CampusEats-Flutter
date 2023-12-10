@@ -18,34 +18,35 @@ class ProductDetail {
     this.price,
     this.photo,
   });
-  
+
   void updateShowCard(bool value, int price) {
     print('Show card updated - Value: $value, Price: $price');
   }
+
   List<Widget> _productList(List<dynamic> data, BuildContext context) {
-  final List<Widget> products = [];
+    final List<Widget> products = [];
 
-  data.forEach((product) {
-    final tempProduct = ProductCard(
-      text: product.name,
-      price: product.price,
-      image: product.photo,
-      isFavourite: product.isFavourite,
-      showCard: updateShowCard,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetailPage(
-              productDetail: product.toProductDetail(), 
+    data.forEach((product) {
+      final tempProduct = ProductCard(
+        id: product._id,
+        text: product.name,
+        price: product.price,
+        image: product.photo,
+        isFavourite: product.isFavourite,
+        showCard: updateShowCard,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailPage(
+                productDetail: product.toProductDetail(),
+              ),
             ),
-          ),
-        );
-      },
-    );
-    products.add(tempProduct);
-  });
-  return products;
-}
-
+          );
+        },
+      );
+      products.add(tempProduct);
+    });
+    return products;
+  }
 }
