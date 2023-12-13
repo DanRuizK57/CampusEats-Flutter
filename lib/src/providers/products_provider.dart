@@ -5,7 +5,7 @@ import 'package:campus_eats_flutter/src/models/product_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductsProvider {
-  final String ip = "192.168.1.13";
+  final String ip = "192.168.1.103";
 
   Future<List<Product>> getProducts() async {
     final url = Uri.http('$ip:3000', '/product/list');

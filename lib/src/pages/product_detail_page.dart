@@ -1,4 +1,5 @@
 import 'package:campus_eats_flutter/src/pages/components/summary_card.dart';
+import 'package:campus_eats_flutter/src/pages/products_page.dart';
 import 'package:campus_eats_flutter/src/providers/products_provider.dart';
 import 'package:campus_eats_flutter/src/utils/color_changing_button.dart';
 import 'package:campus_eats_flutter/src/utils/quantity_selector.dart';
@@ -16,11 +17,17 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int selectedQuantity = 0;
-
+  bool isFavourite = false;
   void updateShowCard(bool value, int price) {
     setState(() {
       selectedQuantity++;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    isFavourite = widget.productDetail.isFavourite!;
   }
 
   @override
@@ -49,7 +56,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).pop(); // Navegar hacia atrás
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductsPage(),
+                              ),
+                            );
                           },
                           child: Icon(
                             Icons.arrow_back_ios,
@@ -58,7 +71,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
                         Row(
                           children: [
-                            //ColorChangingButton(),
+                            IconButton(
+                              icon: Icon(
+                                Icons.favorite,
+                                color: isFavourite ? Colors.red : Colors.grey,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  isFavourite = !isFavourite;
+                                  productsProvider
+                                      .setFavourite(widget.productDetail.id!);
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ],

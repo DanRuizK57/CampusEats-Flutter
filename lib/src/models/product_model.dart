@@ -55,6 +55,7 @@ class Product {
       quantity: quantity,
       price: price,
       photo: photo,
+      isFavourite: isFavourite,
     );
   }
 

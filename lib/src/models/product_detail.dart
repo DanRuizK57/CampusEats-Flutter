@@ -9,6 +9,7 @@ class ProductDetail {
   String? quantity;
   int? price;
   String? photo;
+  bool? isFavourite;
 
   ProductDetail({
     this.id,
@@ -17,6 +18,7 @@ class ProductDetail {
     this.quantity,
     this.price,
     this.photo,
+    this.isFavourite,
   });
 
   void updateShowCard(bool value, int price) {
